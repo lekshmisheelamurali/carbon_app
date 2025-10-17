@@ -31,8 +31,8 @@ firewood_emission = firewood_tj * EF_FIREWOOD
 
 st.header("Paddy Field Emissions (CH4 to CO2eq)")
 # User Inputs for paddy cultivation
-paddy_area_per_season = st.number_input("Enter harvested area per season (m²):", min_value=0.0, value=38400.0)
-period_days = st.number_input("Enter period of cultivation (days):", min_value=0, value=135)
+paddy_area_per_season = st.number_input("Enter harvested area per season (m²):", min_value=0.0, value=0.0)
+period_days = st.number_input("Enter period of cultivation (days):", min_value=0, value=0.0)
 
 # Paddy emission factor
 EF_PADDY = 0.011  # kg CH4 / m² / season
