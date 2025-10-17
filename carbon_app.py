@@ -3,11 +3,20 @@ import streamlit as st
 # Title
 st.title("Carbon Footprint Assessment")
 
+# ==========================
+# Fossil Fuel and Firewood Inputs
+# ==========================
 st.header("Fossil Fuel and Firewood Emissions")
-# User Inputs for fuel and firewood
-petrol_litre = st.number_input("Enter petrol consumption (litres):", min_value=0.0, value=0.0)
-diesel_litre = st.number_input("Enter diesel consumption (litres):", min_value=0.0, value=0.0)
-firewood_kg = st.number_input("Enter firewood consumption (kg):", min_value=0.0, value=0.0)
+
+petrol_litre = st.number_input(
+    "Enter petrol consumption (litres):", min_value=0.0, value=0.0
+)
+diesel_litre = st.number_input(
+    "Enter diesel consumption (litres):", min_value=0.0, value=0.0
+)
+firewood_kg = st.number_input(
+    "Enter firewood consumption (kg):", min_value=0.0, value=0.0
+)
 
 # Conversion factors
 PETROL_L_TO_TJ = 0.0000342  # TJ per litre
@@ -29,25 +38,37 @@ petrol_emission = petrol_tj * EF_PETROL
 diesel_emission = diesel_tj * EF_DIESEL
 firewood_emission = firewood_tj * EF_FIREWOOD
 
+# ==========================
+# Paddy Cultivation Inputs
+# ==========================
 st.header("Paddy Field Emissions (CH4 to CO2eq)")
-# User Inputs for paddy cultivation
-paddy_area_per_season = st.number_input("Enter harvested area per season (m²):", min_value=0.0, value=0.0)
-period_days = st.number_input("Enter period of cultivation (days):", min_value=0, value=0.0)
+
+paddy_area_per_season = st.number_input(
+    "Enter harvested area per season (m²):", min_value=0.0, value=0.0
+)
+period_days = st.number_input(
+    "Enter period of cultivation (days):", min_value=0, value=0
+)
 
 # Paddy emission factor
 EF_PADDY = 0.011  # kg CH4 / m² / season
 CH4_TO_CO2EQ = 28  # Global warming potential of CH4
 
-# Calculations
+# Calculations for paddy
 annual_CH4_kg = EF_PADDY * paddy_area_per_season * 1  # 1 season
 annual_CH4_ton = annual_CH4_kg / 1000
 annual_CO2eq_paddy = annual_CH4_ton * CH4_TO_CO2EQ
 
-# Total emission
+# ==========================
+# Total Emission
+# ==========================
 total_emission = petrol_emission + diesel_emission + firewood_emission + annual_CO2eq_paddy
 
-# Display results with 3 decimal points
+# ==========================
+# Display Results
+# ==========================
 st.subheader("CO₂ Emissions (tonnes)")
+
 st.write(f"Petrol: {petrol_emission:.3f} t CO₂")
 st.write(f"Diesel: {diesel_emission:.3f} t CO₂")
 st.write(f"Firewood: {firewood_emission:.3f} t CO₂")
