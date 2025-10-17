@@ -3,7 +3,8 @@ import streamlit as st
 # Title
 st.title("Carbon Footprint Assessment")
 
-# User Inputs
+st.header("Fossil Fuel and Firewood Emissions")
+# User Inputs for fuel and firewood
 petrol_litre = st.number_input("Enter petrol consumption (litres):", min_value=0.0, value=0.0)
 diesel_litre = st.number_input("Enter diesel consumption (litres):", min_value=0.0, value=0.0)
 firewood_kg = st.number_input("Enter firewood consumption (kg):", min_value=0.0, value=0.0)
@@ -19,7 +20,7 @@ EF_PETROL = 69.3  # t CO2 / TJ
 EF_DIESEL = 74.1  # t CO2 / TJ
 EF_FIREWOOD = 112  # t CO2 / TJ
 
-# Calculations
+# Calculations for fuel and firewood
 petrol_tj = petrol_litre * PETROL_L_TO_TJ
 diesel_tj = diesel_litre * DIESEL_L_TO_TJ
 firewood_tj = firewood_kg * KG_TO_TONNE * FIREWOOD_TON_TO_TJ
@@ -28,11 +29,27 @@ petrol_emission = petrol_tj * EF_PETROL
 diesel_emission = diesel_tj * EF_DIESEL
 firewood_emission = firewood_tj * EF_FIREWOOD
 
-total_emission = petrol_emission + diesel_emission + firewood_emission
+st.header("Paddy Field Emissions (CH4 to CO2eq)")
+# User Inputs for paddy cultivation
+paddy_area_per_season = st.number_input("Enter harvested area per season (m²):", min_value=0.0, value=38400.0)
+period_days = st.number_input("Enter period of cultivation (days):", min_value=0, value=135)
+
+# Paddy emission factor
+EF_PADDY = 0.011  # kg CH4 / m² / season
+CH4_TO_CO2EQ = 28  # Global warming potential of CH4
+
+# Calculations
+annual_CH4_kg = EF_PADDY * paddy_area_per_season * 1  # 1 season
+annual_CH4_ton = annual_CH4_kg / 1000
+annual_CO2eq_paddy = annual_CH4_ton * CH4_TO_CO2EQ
+
+# Total emission
+total_emission = petrol_emission + diesel_emission + firewood_emission + annual_CO2eq_paddy
 
 # Display results with 3 decimal points
 st.subheader("CO₂ Emissions (tonnes)")
 st.write(f"Petrol: {petrol_emission:.3f} t CO₂")
 st.write(f"Diesel: {diesel_emission:.3f} t CO₂")
 st.write(f"Firewood: {firewood_emission:.3f} t CO₂")
-st.write(f"**Total Emission: {total_emission:.3f} t CO₂**")
+st.write(f"Paddy Cultivation: {annual_CO2eq_paddy:.3f} t CO₂eq")
+st.write(f"**Total Emission: {total_emission:.3f} t CO₂eq**")
