@@ -1,57 +1,40 @@
 import streamlit as st
-import pandas as pd
-import matplotlib.pyplot as plt
 
-st.set_page_config(page_title="Carbon Footprint Calculator", page_icon="🌍")
+# Title
+st.title("Carbon Footprint Assessment")
 
-st.title("🌿 Carbon Footprint Calculator")
-st.write("Estimate your carbon emissions based on your resource use.")
+# User Inputs
+petrol_litre = st.number_input("Enter petrol consumption (litres):", min_value=0.0, value=0.0)
+diesel_litre = st.number_input("Enter diesel consumption (litres):", min_value=0.0, value=0.0)
+firewood_kg = st.number_input("Enter firewood consumption (kg):", min_value=0.0, value=0.0)
 
-# Input section
-st.header("Enter your data")
+# Conversion factors
+# Energy content (approximate)
+PETROL_L_TO_TJ = 0.0000342  # TJ per litre
+DIESEL_L_TO_TJ = 0.0000386  # TJ per litre
+FIREWOOD_TON_TO_TJ = 0.015  # TJ per tonne (average wood energy content)
+KG_TO_TONNE = 0.001          # kg to tonne
 
-electricity = st.number_input("Electricity used (kWh/month)", min_value=0.0, step=0.1)
-diesel = st.number_input("Diesel used (litres/month)", min_value=0.0, step=0.1)
-lpg = st.number_input("LPG used (kg/month)", min_value=0.0, step=0.1)
-fertilizer = st.number_input("Fertilizer used (kg N/month)", min_value=0.0, step=0.1)
-livestock = st.number_input("Number of cattle", min_value=0, step=1)
+# Emission factors
+EF_PETROL = 69.3  # t CO2 / TJ
+EF_DIESEL = 74.1  # t CO2 / TJ
+EF_FIREWOOD = 112  # t CO2 / TJ
 
-# Emission factors (example: kg CO2e per unit)
-ef = {
-    "electricity": 0.82,
-    "diesel": 2.68,
-    "lpg": 3.00,
-    "fertilizer": 6.3,   # rough value for N fertilizer (IPCC)
-    "livestock": 100.0   # per head/year (approx; you can refine)
-}
+# Calculations
+petrol_tj = petrol_litre * PETROL_L_TO_TJ
+diesel_tj = diesel_litre * DIESEL_L_TO_TJ
+firewood_tj = firewood_kg * KG_TO_TONNE * FIREWOOD_TON_TO_TJ
 
-# Calculate emissions
-emissions = {
-    "Electricity": electricity * ef["electricity"],
-    "Diesel": diesel * ef["diesel"],
-    "LPG": lpg * ef["lpg"],
-    "Fertilizer": fertilizer * ef["fertilizer"],
-    "Livestock": livestock * ef["livestock"] / 12,  # monthly value
-}
+petrol_emission = petrol_tj * EF_PETROL
+diesel_emission = diesel_tj * EF_DIESEL
+firewood_emission = firewood_tj * EF_FIREWOOD
 
-total_emission = sum(emissions.values())
+total_emission = petrol_emission + diesel_emission + firewood_emission
 
-st.subheader("Results")
-st.write(f"**Total Monthly Emission:** {total_emission:.2f} kg CO₂e")
+# Display results
+st.subheader("CO₂ Emissions (tonnes)")
+st.write(f"Petrol: {petrol_emission:.2f} t CO₂")
+st.write(f"Diesel: {diesel_emission:.2f} t CO₂")
+st.write(f"Firewood: {firewood_emission:.2f} t CO₂")
+st.write(f"**Total Emission: {total_emission:.2f} t CO₂**")
 
-# Show a pie chart
-import numpy as np
-
-if np.sum(list(emissions.values())) > 0:
-    fig, ax = plt.subplots()
-    ax.pie(emissions.values(), labels=emissions.keys(), autopct="%1.1f%%", startangle=90)
-    ax.axis("equal")
-    st.pyplot(fig)
-else:
-    st.info("Please enter some values above to generate a pie chart.")
-
-
-# Option to download results
-df = pd.DataFrame(emissions.items(), columns=["Source", "Emission (kg CO2e)"])
-csv = df.to_csv(index=False).encode("utf-8")
-st.download_button("⬇️ Download results as CSV", csv, "carbon_footprint.csv", "text/csv")
