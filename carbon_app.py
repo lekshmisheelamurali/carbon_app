@@ -67,7 +67,6 @@ annual_CO2eq_paddy = annual_CH4_ton * CH4_TO_CO2EQ
 # ==========================
 st.header("Livestock Emissions (CH4 to CO2eq)")
 
-# Define livestock types and enteric emission per head (kg/year)
 livestock_data = {
     "Cattle-indigenous (female), 0-12 months": 9.7,
     "Cattle-indigenous (female), 1-3 years": 15.39,
@@ -89,11 +88,6 @@ for animal, ef in livestock_data.items():
     livestock_results[animal] = emission_co2eq
 
 # ==========================
-# Total Emission
-# ==========================
-total_emission = petrol_emission + diesel_emission + firewood_emission + annual_CO2eq_paddy + livestock_emissions
-
-# ==========================
 # Display Results
 # ==========================
 st.subheader("CO₂ Emissions (tonnes)")
@@ -104,8 +98,16 @@ st.write(f"Firewood: {firewood_emission:.3f} t CO₂")
 
 st.write(f"Paddy Cultivation: {annual_CO2eq_paddy:.3f} t CO₂eq")
 
-st.subheader("Livestock Emissions (CO2eq t)")
+# Show total livestock emissions right after paddy
+st.write(f"Total Livestock Emissions: {livestock_emissions:.3f} t CO₂eq")
+
+st.subheader("Individual Livestock Emissions (CO2eq t)")
 for animal, emission in livestock_results.items():
     st.write(f"{animal}: {emission:.3f} t CO₂eq")
+
+# ==========================
+# Total Emission
+# ==========================
+total_emission = petrol_emission + diesel_emission + firewood_emission + annual_CO2eq_paddy + livestock_emissions
 
 st.write(f"**Total Emission: {total_emission:.3f} t CO₂eq**")
