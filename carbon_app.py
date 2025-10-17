@@ -9,10 +9,9 @@ diesel_litre = st.number_input("Enter diesel consumption (litres):", min_value=0
 firewood_kg = st.number_input("Enter firewood consumption (kg):", min_value=0.0, value=0.0)
 
 # Conversion factors
-# Energy content (approximate)
 PETROL_L_TO_TJ = 0.0000342  # TJ per litre
 DIESEL_L_TO_TJ = 0.0000386  # TJ per litre
-FIREWOOD_TON_TO_TJ = 0.015  # TJ per tonne (average wood energy content)
+FIREWOOD_TON_TO_TJ = 0.015  # TJ per tonne
 KG_TO_TONNE = 0.001          # kg to tonne
 
 # Emission factors
@@ -31,10 +30,9 @@ firewood_emission = firewood_tj * EF_FIREWOOD
 
 total_emission = petrol_emission + diesel_emission + firewood_emission
 
-# Display results
+# Display results with 3 decimal points
 st.subheader("CO₂ Emissions (tonnes)")
-st.write(f"Petrol: {petrol_emission:.2f} t CO₂")
-st.write(f"Diesel: {diesel_emission:.2f} t CO₂")
-st.write(f"Firewood: {firewood_emission:.2f} t CO₂")
-st.write(f"**Total Emission: {total_emission:.2f} t CO₂**")
-
+st.write(f"Petrol: {petrol_emission:.3f} t CO₂")
+st.write(f"Diesel: {diesel_emission:.3f} t CO₂")
+st.write(f"Firewood: {firewood_emission:.3f} t CO₂")
+st.write(f"**Total Emission: {total_emission:.3f} t CO₂**")
