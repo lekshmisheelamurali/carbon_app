@@ -67,7 +67,7 @@ annual_CO2eq_paddy = annual_CH4_ton * CH4_TO_CO2EQ
 # ==========================
 st.header("Livestock Emissions (CH4 to CO2eq)")
 
-# Livestock types and enteric emissions (kg CH4/head/year)
+# Define livestock types and enteric emission per head (kg/year)
 livestock_data = {
     "Cattle-indigenous (female), 0-12 months": 9.7,
     "Cattle-indigenous (female), 1-3 years": 15.39,
@@ -78,17 +78,10 @@ livestock_data = {
     "Goat (female), >1 year": 4.93
 }
 
-# Let user select livestock types
-selected_livestock = st.multiselect(
-    "Select the types of livestock you have:", list(livestock_data.keys())
-)
-
 livestock_emissions = 0
 livestock_results = {}
 
-# Input number of heads for selected livestock
-for animal in selected_livestock:
-    ef = livestock_data[animal]
+for animal, ef in livestock_data.items():
     count = st.number_input(f"Number of {animal}:", min_value=0, value=0)
     emission_ton = (count * ef) / 1000  # kg → tonnes
     emission_co2eq = emission_ton * CH4_TO_CO2EQ
