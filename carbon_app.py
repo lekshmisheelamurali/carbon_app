@@ -63,9 +63,42 @@ annual_CH4_ton = annual_CH4_kg / 1000
 annual_CO2eq_paddy = annual_CH4_ton * CH4_TO_CO2EQ
 
 # ==========================
+# Livestock Inputs
+# ==========================
+st.header("Livestock Emissions (CH4 to CO2eq)")
+
+# Livestock types and enteric emissions (kg CH4/head/year)
+livestock_data = {
+    "Cattle-indigenous (female), 0-12 months": 9.7,
+    "Cattle-indigenous (female), 1-3 years": 15.39,
+    "Cattle-indigenous (female), Milking": 35.97,
+    "Goat (male), <1 year": 2.83,
+    "Goat (male), >1 year": 4.23,
+    "Goat (female), >1 year Milking": 4.99,
+    "Goat (female), >1 year": 4.93
+}
+
+# Let user select livestock types
+selected_livestock = st.multiselect(
+    "Select the types of livestock you have:", list(livestock_data.keys())
+)
+
+livestock_emissions = 0
+livestock_results = {}
+
+# Input number of heads for selected livestock
+for animal in selected_livestock:
+    ef = livestock_data[animal]
+    count = st.number_input(f"Number of {animal}:", min_value=0, value=0)
+    emission_ton = (count * ef) / 1000  # kg → tonnes
+    emission_co2eq = emission_ton * CH4_TO_CO2EQ
+    livestock_emissions += emission_co2eq
+    livestock_results[animal] = emission_co2eq
+
+# ==========================
 # Total Emission
 # ==========================
-total_emission = petrol_emission + diesel_emission + firewood_emission + annual_CO2eq_paddy
+total_emission = petrol_emission + diesel_emission + firewood_emission + annual_CO2eq_paddy + livestock_emissions
 
 # ==========================
 # Display Results
@@ -75,5 +108,11 @@ st.subheader("CO₂ Emissions (tonnes)")
 st.write(f"Petrol: {petrol_emission:.3f} t CO₂")
 st.write(f"Diesel: {diesel_emission:.3f} t CO₂")
 st.write(f"Firewood: {firewood_emission:.3f} t CO₂")
+
 st.write(f"Paddy Cultivation: {annual_CO2eq_paddy:.3f} t CO₂eq")
+
+st.subheader("Livestock Emissions (CO2eq t)")
+for animal, emission in livestock_results.items():
+    st.write(f"{animal}: {emission:.3f} t CO₂eq")
+
 st.write(f"**Total Emission: {total_emission:.3f} t CO₂eq**")
