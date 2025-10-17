@@ -49,13 +49,16 @@ paddy_area_per_season = st.number_input(
 period_days = st.number_input(
     "Enter period of cultivation (days):", min_value=0, value=0
 )
+paddy_cycles_per_year = st.number_input(
+    "Enter number of paddy cultivation cycles per year:", min_value=0, value=0
+)
 
 # Paddy emission factor
 EF_PADDY = 0.011  # kg CH4 / m² / season
 CH4_TO_CO2EQ = 28  # Global warming potential of CH4
 
 # Calculations for paddy
-annual_CH4_kg = EF_PADDY * paddy_area_per_season * 1  # 1 season
+annual_CH4_kg = EF_PADDY * paddy_area_per_season * paddy_cycles_per_year
 annual_CH4_ton = annual_CH4_kg / 1000
 annual_CO2eq_paddy = annual_CH4_ton * CH4_TO_CO2EQ
 
