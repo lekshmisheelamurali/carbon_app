@@ -36,26 +36,23 @@ st.markdown(
         margin-bottom: 40px;
     }
 
-    /* Card buttons for pages */
-    .card-link {
-        display: block;
-        padding: 18px;
-        margin: 12px 0;
-        background-color: #3CB371; /* Medium sea green */
-        color: #ffffff !important;  /* Force text to always be white */
+    /* Button styling */
+    div.stButton > button {
+        background-color: #3CB371;
+        color: white;
         font-size: 20px;
         font-weight: 600;
-        text-align: center;
-        text-decoration: none;  /* Remove underline */
         border-radius: 15px;
-        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        padding: 10px 20px;
+        margin: 10px 0;
+        width: 100%;
         transition: all 0.3s ease;
     }
 
-    .card-link:hover {
-        background-color: #2E8B57; /* Darker green on hover */
-        color: #ffffff !important;  /* Keep text white on hover */
+    div.stButton > button:hover {
+        background-color: #2E8B57;  /* Darker green on hover */
         transform: translateY(-2px);
+        color: #ffffff;
     }
 
     /* Footer */
@@ -76,12 +73,37 @@ st.markdown(
 st.markdown('<div class="title">🌍 Carbon Footprint Assessment</div>', unsafe_allow_html=True)
 st.markdown('<div class="subtitle">Welcome! Choose a category below to calculate emissions:</div>', unsafe_allow_html=True)
 
-# Green-themed card links
-st.markdown('<a class="card-link" href="pages/1_Fossil_Fuel_and_Firewood.py">🚗 Fossil Fuel and Firewood Emissions</a>', unsafe_allow_html=True)
-st.markdown('<a class="card-link" href="pages/2_Paddy_Cultivation.py">🌾 Paddy Field Emissions</a>', unsafe_allow_html=True)
-st.markdown('<a class="card-link" href="pages/3_Livestock_Emissions.py">🐄 Livestock Emissions</a>', unsafe_allow_html=True)
-st.markdown('<a class="card-link" href="pages/4_Electricity_Emissions.py">💡 Electricity Consumption Emissions</a>', unsafe_allow_html=True)
-st.markdown('<a class="card-link" href="pages/5_Total_Emissions.py">📊 View Total Emissions Summary</a>', unsafe_allow_html=True)
+# --------------------------
+# Navigation buttons
+# --------------------------
+col1, col2 = st.columns(2)
+
+with col1:
+    if st.button("🚗 Fossil Fuel and Firewood Emissions"):
+        st.experimental_set_query_params(page="1_Fossil_Fuel_and_Firewood")
+        st.experimental_rerun()
+
+with col2:
+    if st.button("🌾 Paddy Field Emissions"):
+        st.experimental_set_query_params(page="2_Paddy_Cultivation")
+        st.experimental_rerun()
+
+col3, col4 = st.columns(2)
+
+with col3:
+    if st.button("🐄 Livestock Emissions"):
+        st.experimental_set_query_params(page="3_Livestock_Emissions")
+        st.experimental_rerun()
+
+with col4:
+    if st.button("💡 Electricity Consumption Emissions"):
+        st.experimental_set_query_params(page="4_Electricity_Emissions")
+        st.experimental_rerun()
+
+# Full-width button for Total Emissions
+if st.button("📊 View Total Emissions Summary"):
+    st.experimental_set_query_params(page="5_Total_Emissions")
+    st.experimental_rerun()
 
 # Footer
 st.markdown('<div class="footer">Developed by Lekshmi M S</div>', unsafe_allow_html=True)
