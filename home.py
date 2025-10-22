@@ -58,7 +58,7 @@ st.markdown(
 # Page Title
 st.markdown('<div class="title">🌍 Carbon Footprint Assessment</div>', unsafe_allow_html=True)
 
-st.markdown("<p style='text-align:center; font-size:20px; color:#1a521a;'>Welcome! Choose a category below to calculate emissions:</p>", unsafe_allow_html=True)
+st.markdown("<p style='text-align:center; font-size:20px; color:#556B2F;'>Welcome! Choose a category below to calculate emissions:</p>", unsafe_allow_html=True)
 
 # Green themed links as card buttons with dark hover
 st.markdown('<a class="card-link" href="pages/1_Fossil_Fuel_and_Firewood.py">🚗 Fossil Fuel and Firewood Emissions</a>', unsafe_allow_html=True)
