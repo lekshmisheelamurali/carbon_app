@@ -7,60 +7,76 @@ st.set_page_config(
     layout="centered"
 )
 
-# Custom CSS for green-themed buttons and background
+# --------------------------
+# Custom CSS for theme
+# --------------------------
 st.markdown(
     """
     <style>
-    /* Page background */
+    /* Background and main font */
     .stApp {
-        background-color: #e6f2e6;  /* Light green */
-    }
-    
-    /* Title style */
-    .title {
-        color: #1a521a;  /* Dark green */
-        font-size: 50px;
-        font-weight: bold;
-        text-align: center;
+        background-color: #f7f9f7;  /* Light gray/white background */
+        font-family: 'Segoe UI', sans-serif;
     }
 
-    /* Card-like buttons */
+    /* Title styling */
+    .title {
+        color: #2E8B57; /* Sea green */
+        font-size: 48px;
+        font-weight: 700;
+        text-align: center;
+        margin-bottom: 10px;
+    }
+
+    /* Subtitle / welcome text */
+    .subtitle {
+        color: #355E3B; /* Hunter green */
+        font-size: 20px;
+        text-align: center;
+        margin-bottom: 40px;
+    }
+
+    /* Card buttons for pages */
     .card-link {
         display: block;
-        padding: 15px;
-        margin: 10px 0;
-        background-color: #4CAF50; /* Medium green */
+        padding: 18px;
+        margin: 12px 0;
+        background-color: #3CB371; /* Medium sea green */
         color: white;
         font-size: 20px;
-        font-weight: bold;
+        font-weight: 600;
         text-align: center;
         text-decoration: none;
-        border-radius: 12px;
+        border-radius: 15px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
         transition: 0.3s;
     }
+
     .card-link:hover {
-        background-color: #25632f; /* Dark forest green */
+        background-color: #2E8B57; /* Darker green on hover */
         color: #ffffff;
+        transform: translateY(-2px);
     }
 
-    /* Footer style */
+    /* Footer */
     .footer {
-        color: #1a521a;
+        color: #355E3B;
         font-size: 14px;
         text-align: center;
-        margin-top: 20px;
+        margin-top: 40px;
     }
     </style>
     """,
     unsafe_allow_html=True
 )
 
-# Page Title
+# --------------------------
+# Page content
+# --------------------------
 st.markdown('<div class="title">🌍 Carbon Footprint Assessment</div>', unsafe_allow_html=True)
+st.markdown('<div class="subtitle">Welcome! Choose a category below to calculate emissions:</div>', unsafe_allow_html=True)
 
-st.markdown("<p style='text-align:center; font-size:20px; color:#556B2F;'>Welcome! Choose a category below to calculate emissions:</p>", unsafe_allow_html=True)
-
-# Green themed links as card buttons with dark hover
+# Green-themed card links
 st.markdown('<a class="card-link" href="pages/1_Fossil_Fuel_and_Firewood.py">🚗 Fossil Fuel and Firewood Emissions</a>', unsafe_allow_html=True)
 st.markdown('<a class="card-link" href="pages/2_Paddy_Cultivation.py">🌾 Paddy Field Emissions</a>', unsafe_allow_html=True)
 st.markdown('<a class="card-link" href="pages/3_Livestock_Emissions.py">🐄 Livestock Emissions</a>', unsafe_allow_html=True)
