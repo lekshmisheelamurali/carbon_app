@@ -13,7 +13,7 @@ st.set_page_config(
 st.markdown(
     """
     <style>
-    /* Background and main font */
+    /* Page background and font */
     .stApp {
         background-color: #f7f9f7;  /* Light gray/white background */
         font-family: 'Segoe UI', sans-serif;
@@ -42,19 +42,19 @@ st.markdown(
         padding: 18px;
         margin: 12px 0;
         background-color: #3CB371; /* Medium sea green */
-        color: white;
+        color: #ffffff !important;  /* Force text to always be white */
         font-size: 20px;
         font-weight: 600;
         text-align: center;
-        text-decoration: none;
+        text-decoration: none;  /* Remove underline */
         border-radius: 15px;
         box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-        transition: 0.3s;
+        transition: all 0.3s ease;
     }
 
     .card-link:hover {
         background-color: #2E8B57; /* Darker green on hover */
-        color: #ffffff;
+        color: #ffffff !important;  /* Keep text white on hover */
         transform: translateY(-2px);
     }
 
