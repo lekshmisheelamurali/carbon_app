@@ -27,6 +27,9 @@ if electricity_kwh > 0:
     emission_factor = 0.716  # tCO₂ per MWh
     emissions_tonnes = electricity_mwh * emission_factor
 
+    # Store in session state for Total Emissions page
+    st.session_state["electricity_emission"] = emissions_tonnes
+
     st.success(f"**Estimated Emissions:** {emissions_tonnes:.3f} tonnes of CO₂ equivalent")
 
     st.markdown(f"""
@@ -35,4 +38,6 @@ if electricity_kwh > 0:
     \nCO₂ Emissions (tCO₂) = Electricity (MWh) × 0.716
     """)
 else:
+    # Set electricity emission to 0 if no input
+    st.session_state["electricity_emission"] = 0
     st.info("Please enter electricity consumption to calculate emissions.")
