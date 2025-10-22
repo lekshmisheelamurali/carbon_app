@@ -13,12 +13,12 @@ st.markdown(
     <style>
     /* Page background */
     .stApp {
-        background-color: #e6f2e6;
+        background-color: #e6f2e6;  /* Light green */
     }
     
     /* Title style */
     .title {
-        color: #1a521a;
+        color: #1a521a;  /* Dark green */
         font-size: 50px;
         font-weight: bold;
         text-align: center;
@@ -29,7 +29,7 @@ st.markdown(
         display: block;
         padding: 15px;
         margin: 10px 0;
-        background-color: #66b266;
+        background-color: #4CAF50; /* Medium green */
         color: white;
         font-size: 20px;
         font-weight: bold;
@@ -39,8 +39,8 @@ st.markdown(
         transition: 0.3s;
     }
     .card-link:hover {
-        background-color: #4d994d;
-        color: #f2f2f2;
+        background-color: #25632f; /* Dark forest green */
+        color: #ffffff;
     }
 
     /* Footer style */
@@ -60,7 +60,7 @@ st.markdown('<div class="title">🌍 Carbon Footprint Assessment</div>', unsafe_
 
 st.markdown("<p style='text-align:center; font-size:20px; color:#1a521a;'>Welcome! Choose a category below to calculate emissions:</p>", unsafe_allow_html=True)
 
-# Green themed links as card buttons
+# Green themed links as card buttons with dark hover
 st.markdown('<a class="card-link" href="pages/1_Fossil_Fuel_and_Firewood.py">🚗 Fossil Fuel and Firewood Emissions</a>', unsafe_allow_html=True)
 st.markdown('<a class="card-link" href="pages/2_Paddy_Cultivation.py">🌾 Paddy Field Emissions</a>', unsafe_allow_html=True)
 st.markdown('<a class="card-link" href="pages/3_Livestock_Emissions.py">🐄 Livestock Emissions</a>', unsafe_allow_html=True)
