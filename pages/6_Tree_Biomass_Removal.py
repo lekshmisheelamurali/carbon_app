@@ -8,7 +8,7 @@ st.markdown("""
 This calculation estimates **annual increase in biomass carbon stocks** (carbon sequestration) 
 for **Tropical Moist Deciduous Forest**, based on **IPCC (2006) Guidelines – Equation 2.9**.
 
-### Equation 2.9
+
 ΔCG = A × GTOTAL × CF
 
 Where:  
