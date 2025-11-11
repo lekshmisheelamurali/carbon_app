@@ -22,7 +22,7 @@ area = st.number_input("Enter the area (in hectares):", min_value=0.0, step=0.1)
 # Above-ground biomass selection
 biomass_option = st.radio(
     "Select the Above-ground Biomass Range (tonnes ha⁻¹):",
-    ("< 125", "> 125")
+    ("< 125", "\> 125")
 )
 
 # Constants for Tropical Moist Deciduous Forest
