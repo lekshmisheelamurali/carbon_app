@@ -3,11 +3,14 @@ import streamlit as st
 # Page title
 st.title("🌳 Tree Biomass Carbon Removal")
 
-# Description with correct subscripts (shows symbols, not script)
+# Description with correct subscripts
 st.markdown(r"""
 This calculation estimates **annual increase in biomass carbon stocks** (carbon sequestration) 
 for **Tropical Moist Deciduous Forest**, based on **IPCC (2006) Guidelines – Equation 2.9**.
 
+\[
+\Delta C_{g} = A \times G_{\text{total}} \times CF
+\]
 
 """)
 
@@ -41,6 +44,9 @@ G_total = GW * (1 + R)
 # Compute annual increase in carbon stock ΔC_g
 delta_Cg = area * G_total * CF
 
+# Convert carbon (C) to CO2 equivalent using 44/12 = 3.667
+delta_CO2e = delta_Cg * 3.667
+
 # Display results
 st.markdown("---")
 st.subheader("📊 Results")
@@ -52,14 +58,17 @@ if area > 0:
     st.write(f"- Carbon fraction (CF): {CF}")
     st.write(f"- Area (A): {area} ha")
 
-    st.markdown(r"""
-    ### 🌲 Annual Increase in Biomass Carbon Stocks
-    """)
+    st.markdown("### 🌲 Annual Increase in Biomass Carbon Stocks")
 
     # Display ΔC_g with correct subscript
     st.success(f"**ΔC₍g₎ = {delta_Cg:.2f} tonnes C yr⁻¹**")
 
-    st.caption("Calculated using IPCC 2006 Guidelines for Tropical Moist Deciduous Forests (Tier 1).")
+    st.markdown("### 🌎 CO₂ Equivalent (CO₂e)")
+
+    # Display CO₂e result
+    st.success(f"**= {delta_CO2e:.2f} tonnes CO₂e yr⁻¹**")
+
+    st.caption("CO₂e calculated using IPCC conversion factor (1 tonne C = 3.667 tonnes CO₂).")
 
 else:
     st.info("Please enter a valid area to calculate carbon sequestration.")
@@ -67,5 +76,3 @@ else:
 # Footer
 st.markdown("---")
 st.caption("Developed by Lekshmi M S")
-
-
