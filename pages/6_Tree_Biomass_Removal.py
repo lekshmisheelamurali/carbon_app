@@ -8,16 +8,7 @@ st.markdown(r"""
 This calculation estimates **annual increase in biomass carbon stocks** (carbon sequestration) 
 for **Tropical Moist Deciduous Forest**, based on **IPCC (2006) Guidelines – Equation 2.9**.
 
-\[
-\Delta C_{g} = A \times G_{\text{total}} \times CF
-\]
 
-**Where:**
-
-- \(\Delta C_{g}\) = Annual increase in biomass carbon stocks (tonnes C yr^{-1})  
-- \(A\) = Area of land (ha)  
-- \(G_{\text{total}}\) = Mean annual total biomass growth (tonnes d.m. ha^{-1} yr^{-1})  
-- \(CF\) = Carbon fraction of dry matter (tonne C\ (tonne d.m.)^{-1})
 """)
 
 st.markdown("---")
