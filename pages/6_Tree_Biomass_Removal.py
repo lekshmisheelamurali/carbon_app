@@ -4,17 +4,18 @@ import streamlit as st
 st.title("🌳 Tree Biomass Carbon Removal")
 
 # Description
-st.markdown("""
+st.markdown(r"""
 This calculation estimates **annual increase in biomass carbon stocks** (carbon sequestration) 
 for **Tropical Moist Deciduous Forest**, based on **IPCC (2006) Guidelines – Equation 2.9**.
 
-
-ΔCG = A × GTOTAL × CF
+\[
+\Delta C_{G} = A \times G_{\text{TOTAL}} \times CF
+\]
 
 Where:  
-- **ΔCG** = Annual increase in biomass carbon stocks (tonnes C yr⁻¹)  
+- **\(\Delta C_{G}\)** = Annual increase in biomass carbon stocks (tonnes C yr⁻¹)  
 - **A** = Area of land (ha)  
-- **GTOTAL** = Mean annual total biomass growth (tonnes d.m. ha⁻¹ yr⁻¹)  
+- **\(G_{\text{TOTAL}}\)** = Mean annual total biomass growth (tonnes d.m. ha⁻¹ yr⁻¹)  
 - **CF** = Carbon fraction of dry matter (tonne C (tonne d.m.)⁻¹)
 """)
 
@@ -42,25 +43,25 @@ if biomass_option == "< 125":
 else:
     R = 0.24
 
-# Compute total biomass growth (GTOTAL)
-GTOTAL = GW * (1 + R)
+# Compute total biomass growth G_total
+G_TOTAL = GW * (1 + R)
 
-# Compute annual increase in carbon stock
-delta_CG = area * GTOTAL * CF
+# Compute annual increase in carbon stock ΔC_g
+delta_CG = area * G_TOTAL * CF
 
 # Display results
 st.markdown("---")
 st.subheader("📊 Results")
 
 if area > 0:
-    st.write(f"**Selected Parameters:**")
+    st.write("**Selected Parameters:**")
     st.write(f"- Above-ground biomass growth (GW): {GW} tonnes d.m. ha⁻¹ yr⁻¹")
     st.write(f"- Below-ground biomass ratio (R): {R}")
     st.write(f"- Carbon fraction (CF): {CF}")
     st.write(f"- Area (A): {area} ha")
 
     st.markdown("### 🌲 Annual Increase in Biomass Carbon Stocks")
-    st.success(f"**ΔCG = {delta_CG:.2f} tonnes C yr⁻¹**")
+    st.success(f"**ΔC₍G₎ = {delta_Cg:.2f} tonnes C yr⁻¹**")
 
     st.caption("Calculated using IPCC 2006 Guidelines for Tropical Moist Deciduous Forests (Tier 1).")
 else:
@@ -69,3 +70,4 @@ else:
 # Footer
 st.markdown("---")
 st.caption("Developed by Lekshmi M S")
+
