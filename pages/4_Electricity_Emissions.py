@@ -4,19 +4,21 @@ import streamlit as st
 st.title("💡 Electricity Consumption Emissions")
 
 st.markdown("""
-Estimate **CO₂ emissions** from electricity consumption based on the Indian grid emission factor (0.716 tCO₂/MWh).
+Estimate **CO₂ emissions** from electricity consumption based on the Indian grid emission factor 
+**0.716 tCO₂/MWh**.
 """)
 
-# Input
+# Input with session_state support
 st.header("🔢 Input Data")
 electricity_kwh = st.number_input(
     "Enter total electricity consumption (kWh):",
     min_value=0.0,
-    value=0.0,
+    value=st.session_state.get("electricity_kwh", 0.0),
+    key="electricity_kwh",
     help="Enter the total electricity consumption in kilowatt-hours (kWh)."
 )
 
-# Conversion and emission factor
+# Conversion details
 st.markdown("#### ⚙️ Calculation Details")
 st.write("- **1 MWh = 1000 kWh**")
 st.write("- **Grid emission factor = 0.716 tCO₂ / MWh**")
@@ -27,7 +29,7 @@ if electricity_kwh > 0:
     emission_factor = 0.716  # tCO₂ per MWh
     emissions_tonnes = electricity_mwh * emission_factor
 
-    # Store in session state for Total Emissions page
+    # Save result in session state
     st.session_state["electricity_emission"] = emissions_tonnes
 
     st.success(f"**Estimated Emissions:** {emissions_tonnes:.3f} tonnes of CO₂ equivalent")
@@ -38,6 +40,6 @@ if electricity_kwh > 0:
     \nCO₂ Emissions (tCO₂) = Electricity (MWh) × 0.716
     """)
 else:
-    # Set electricity emission to 0 if no input
+    # Zero emission stored if no input
     st.session_state["electricity_emission"] = 0
     st.info("Please enter electricity consumption to calculate emissions.")
