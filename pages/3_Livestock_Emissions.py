@@ -12,7 +12,11 @@ livestock_data = {
     "Goat (male), <1 year": 2.83,
     "Goat (male), >1 year": 4.23,
     "Goat (female), >1 year Milking": 4.99,
-    "Goat (female), >1 year": 4.93
+    "Goat (female), >1 year": 4.93,
+
+    # ✅ Added new categories
+    "Kasaragode dwarf (female)": 15.36,
+    "Kasaragode dwarf (male)": 16.36,
 }
 
 livestock_emissions = 0
