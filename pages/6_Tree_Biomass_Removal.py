@@ -8,9 +8,7 @@ st.markdown(r"""
 This calculation estimates **annual increase in biomass carbon stocks** (carbon sequestration) 
 for **Tropical Moist Deciduous Forest**, based on **IPCC (2006) Guidelines – Equation 2.9**.
 
-\[
-\Delta C_{g} = A \times G_{\text{total}} \times CF
-\]
+
 
 """)
 
