@@ -9,12 +9,13 @@ fuel = st.session_state.get("fuel_emission", 0)
 paddy = st.session_state.get("paddy_emission", 0)
 livestock = st.session_state.get("livestock_emission", 0)
 electricity = st.session_state.get("electricity_emission", 0)
+fertilizer = st.session_state.get("fertilizer_emission", 0)  # NEW
 
 # Calculate total emissions
-total = fuel + paddy + livestock + electricity
+total = fuel + paddy + livestock + electricity + fertilizer
 
 # Check if all values are filled
-if fuel == 0 or paddy == 0 or livestock == 0 or electricity == 0:
+if fuel == 0 or paddy == 0 or livestock == 0 or electricity == 0 or fertilizer == 0:
     st.warning("⚠️ Some categories may not have been filled yet. Please check all pages.")
 
 # Display category-wise emissions
@@ -23,6 +24,7 @@ st.write(f"🚗 **Fossil Fuel & Firewood:** {fuel:.3f}")
 st.write(f"🌾 **Paddy Cultivation:** {paddy:.3f}")
 st.write(f"🐄 **Livestock:** {livestock:.3f}")
 st.write(f"💡 **Electricity Consumption:** {electricity:.3f}")
+st.write(f"🧪 **Fertilizer Application:** {fertilizer:.3f}")  # NEW
 
 # Divider
 st.markdown("---")
