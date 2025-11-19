@@ -1,7 +1,5 @@
 import streamlit as st
-from reportlab.pdfgen import canvas
-from reportlab.lib.pagesizes import letter
-import os
+from fpdf import FPDF
 
 st.title("📊 Total Emissions Summary")
 
@@ -17,7 +15,7 @@ fertilizer = st.session_state.get("fertilizer_emission", 0)
 # Calculate total emissions
 total = fuel + paddy + livestock + electricity + fertilizer
 
-# Check if all values are filled
+# Warning if any missing input
 if fuel == 0 or paddy == 0 or livestock == 0 or electricity == 0 or fertilizer == 0:
     st.warning("⚠️ Some categories may not have been filled yet. Please check all pages.")
 
@@ -29,58 +27,48 @@ st.write(f"🐄 **Livestock:** {livestock:.3f}")
 st.write(f"💡 **Electricity Consumption:** {electricity:.3f}")
 st.write(f"🧪 **Fertilizer Application:** {fertilizer:.3f}")
 
-# Divider
 st.markdown("---")
 
 # Total emissions
 st.subheader(f"✅ **Total Emissions:** {total:.3f} t CO₂eq")
 st.success(f"Overall Total: {total:.3f} tonnes of CO₂ equivalent")
 
-# ---------------------------------------------------------
-# PDF DOWNLOAD SECTION
-# ---------------------------------------------------------
 
-def create_pdf(filepath="total_emissions.pdf"):
-    c = canvas.Canvas(filepath, pagesize=letter)
-    width, height = letter
+# -------------------------------
+# PDF GENERATION USING FPDF
+# -------------------------------
 
-    y = height - 50
-    c.setFont("Helvetica-Bold", 16)
-    c.drawString(50, y, "Total Emissions Summary")
+def generate_pdf():
+    pdf = FPDF()
+    pdf.add_page()
 
-    y -= 40
-    c.setFont("Helvetica", 12)
+    pdf.set_font("Arial", "B", 16)
+    pdf.cell(0, 10, "Total Emissions Summary", ln=True)
 
-    data_lines = [
-        f"Fossil Fuel & Firewood: {fuel:.3f} t CO₂eq",
-        f"Paddy Cultivation: {paddy:.3f} t CO₂eq",
-        f"Livestock: {livestock:.3f} t CO₂eq",
-        f"Electricity Consumption: {electricity:.3f} t CO₂eq",
-        f"Fertilizer Application: {fertilizer:.3f} t CO₂eq",
-        "-----------------------------------------------",
-        f"Total Emissions: {total:.3f} t CO₂eq"
+    pdf.ln(5)
+    pdf.set_font("Arial", "", 12)
+
+    lines = [
+        f"Fossil Fuel & Firewood: {fuel:.3f} t CO2eq",
+        f"Paddy Cultivation: {paddy:.3f} t CO2eq",
+        f"Livestock: {livestock:.3f} t CO2eq",
+        f"Electricity Consumption: {electricity:.3f} t CO2eq",
+        f"Fertilizer Application: {fertilizer:.3f} t CO2eq",
+        "--------------------------------------",
+        f"Total Emissions: {total:.3f} t CO2eq",
     ]
 
-    for line in data_lines:
-        c.drawString(50, y, line)
-        y -= 20
+    for line in lines:
+        pdf.cell(0, 10, line, ln=True)
 
-    c.save()
+    return pdf.output(dest="S").encode("latin-1")
 
 
-# Button to download PDF
-if st.button("📄 Download Summary as PDF"):
-    filepath = "total_emissions.pdf"
-    create_pdf(filepath)
-
-    with open(filepath, "rb") as pdf_file:
-        st.download_button(
-            label="⬇️ Click to Download PDF",
-            data=pdf_file,
-            file_name="Total_Emissions_Summary.pdf",
-            mime="application/pdf"
-        )
-
-    # Delete after sending (optional)
-    if os.path.exists(filepath):
-        os.remove(filepath)
+# Download button
+pdf_bytes = generate_pdf()
+st.download_button(
+    label="📄 Download Summary as PDF",
+    data=pdf_bytes,
+    file_name="Total_Emissions_Summary.pdf",
+    mime="application/pdf"
+)
