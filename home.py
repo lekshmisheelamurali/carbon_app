@@ -1,3 +1,5 @@
+5_Fertilizer Application Emissions.py
+
 import streamlit as st
 
 # Page title
@@ -12,21 +14,22 @@ st.page_link("pages/1_Fossil_Fuel_and_Firewood.py", label="🚗 Fossil Fuel and 
 st.page_link("pages/2_Paddy_Cultivation.py", label="🌾 Paddy Field Emissions")
 st.page_link("pages/3_Livestock_Emissions.py", label="🐄 Livestock Emissions")
 st.page_link("pages/4_Electricity_Emissions.py", label="💡 Electricity Consumption Emissions")
+st.page_link("pages/5_Fertilizer Application Emissions.py", label="🧪 Fertilizer Application Emissions")  # NEW
 
 # Separator
 st.markdown("---")
 
 # Carbon removal section
 st.subheader("🌿 Carbon Removal")
-st.page_link("pages/6_Tree_Biomass_Removal.py", label="🌳 Tree Biomass Carbon Removal")
+st.page_link("pages/7_Tree_Biomass_Removal.py", label="🌳 Tree Biomass Carbon Removal")
 
 # Separator
 st.markdown("---")
 
 # Overall summary
 st.subheader("📊 Overall Summary")
-st.page_link("pages/5_Total_Emissions.py", label="📈 View Total Emissions Summary")
-st.page_link("pages/7_Total_Removal.py", label="📉 View Total Carbon Removal Summary")
+st.page_link("pages/6_Total_Emissions.py", label="📈 View Total Emissions Summary")
+st.page_link("pages/8_Total_Removal.py", label="📉 View Total Carbon Removal Summary")
 
 # Footer
 st.markdown("---")
