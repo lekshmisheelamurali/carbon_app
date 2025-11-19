@@ -42,14 +42,12 @@ def create_pdf():
     pdf = FPDF()
     pdf.add_page()
 
-    # Title
     pdf.set_font("Arial", size=16)
     pdf.cell(200, 10, txt="Total Emissions Summary", ln=True, align="C")
 
     pdf.ln(8)
     pdf.set_font("Arial", size=12)
 
-    # Emission values
     pdf.cell(0, 10, f"Fossil Fuel & Firewood: {fuel:.3f} t CO2eq", ln=True)
     pdf.cell(0, 10, f"Paddy Cultivation: {paddy:.3f} t CO2eq", ln=True)
     pdf.cell(0, 10, f"Livestock: {livestock:.3f} t CO2eq", ln=True)
@@ -60,9 +58,14 @@ def create_pdf():
     pdf.set_font("Arial", "B", 12)
     pdf.cell(0, 10, f"TOTAL EMISSIONS: {total:.3f} t CO2eq", ln=True)
 
-    # fpdf2 returns bytes directly (NO ENCODING)
-    pdf_bytes = pdf.output(dest="S")
-    return pdf_bytes
+    # Get PDF output (may be str or bytes depending on library version)
+    pdf_output = pdf.output(dest="S")
+
+    # Convert to bytes safely
+    if isinstance(pdf_output, str):
+        pdf_output = pdf_output.encode("latin-1")
+
+    return pdf_output
 
 # --------------------------------------------------------------
 # DOWNLOAD PDF BUTTON
