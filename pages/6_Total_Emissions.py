@@ -1,5 +1,4 @@
 import streamlit as st
-from fpdf import FPDF
 
 st.title("📊 Total Emissions Summary")
 
@@ -33,42 +32,48 @@ st.markdown("---")
 st.subheader(f"✅ **Total Emissions:** {total:.3f} t CO₂eq")
 st.success(f"Overall Total: {total:.3f} tonnes of CO₂ equivalent")
 
+# ------------------------------------------------
+# DOWNLOAD AS TEXT FILE (works everywhere)
+# ------------------------------------------------
 
-# -------------------------------
-# PDF GENERATION USING FPDF
-# -------------------------------
+report_text = f"""
+CARBON FOOTPRINT SUMMARY
+-------------------------
+Fossil Fuel & Firewood: {fuel:.3f} t CO₂eq
+Paddy Cultivation: {paddy:.3f} t CO₂eq
+Livestock: {livestock:.3f} t CO₂eq
+Electricity Consumption: {electricity:.3f} t CO₂eq
+Fertilizer Application: {fertilizer:.3f} t CO₂eq
+-------------------------
+TOTAL EMISSIONS: {total:.3f} t CO₂eq
+"""
 
-def generate_pdf():
-    pdf = FPDF()
-    pdf.add_page()
-
-    pdf.set_font("Arial", "B", 16)
-    pdf.cell(0, 10, "Total Emissions Summary", ln=True)
-
-    pdf.ln(5)
-    pdf.set_font("Arial", "", 12)
-
-    lines = [
-        f"Fossil Fuel & Firewood: {fuel:.3f} t CO2eq",
-        f"Paddy Cultivation: {paddy:.3f} t CO2eq",
-        f"Livestock: {livestock:.3f} t CO2eq",
-        f"Electricity Consumption: {electricity:.3f} t CO2eq",
-        f"Fertilizer Application: {fertilizer:.3f} t CO2eq",
-        "--------------------------------------",
-        f"Total Emissions: {total:.3f} t CO2eq",
-    ]
-
-    for line in lines:
-        pdf.cell(0, 10, line, ln=True)
-
-    return pdf.output(dest="S").encode("latin-1")
-
-
-# Download button
-pdf_bytes = generate_pdf()
 st.download_button(
-    label="📄 Download Summary as PDF",
-    data=pdf_bytes,
-    file_name="Total_Emissions_Summary.pdf",
-    mime="application/pdf"
+    label="📄 Download Summary (TXT)",
+    data=report_text,
+    file_name="Carbon_Emissions_Summary.txt",
+    mime="text/plain"
 )
+
+# ------------------------------------------------
+# PRINT BUTTON (USER CAN SAVE AS PDF)
+# ------------------------------------------------
+
+st.markdown("""
+### 🖨️ Print or Save as PDF  
+Click the button below → then choose **Save as PDF** in your browser.
+""")
+
+st.markdown("""
+<button onclick="window.print()" style="
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+">
+🖨️ Print / Save as PDF
+</button>
+""", unsafe_allow_html=True)
