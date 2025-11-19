@@ -55,25 +55,4 @@ st.download_button(
     mime="text/plain"
 )
 
-# ------------------------------------------------
-# PRINT BUTTON (USER CAN SAVE AS PDF)
-# ------------------------------------------------
 
-st.markdown("""
-### 🖨️ Print or Save as PDF  
-Click the button below → then choose **Save as PDF** in your browser.
-""")
-
-st.markdown("""
-<button onclick="window.print()" style="
-    background-color: #4CAF50;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    font-size: 16px;
-    cursor: pointer;
-">
-🖨️ Print / Save as PDF
-</button>
-""", unsafe_allow_html=True)
